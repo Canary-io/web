@@ -21,7 +21,7 @@ export default function DeploymentsTable({ deployments }: DeploymentsTableProps)
           <tr>
             <th className="text-left px-6 py-3 text-gray-700 font-semibold">Name</th>
             <th className="text-left px-6 py-3 text-gray-700 font-semibold">Status</th>
-            <th className="text-left px-6 py-3 text-gray-700 font-semibold">URL</th>
+            <th className="text-left px-6 py-3 text-gray-700 font-semibold">Deployment</th>
           </tr>
         </thead>
         <tbody>

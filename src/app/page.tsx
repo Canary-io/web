@@ -1,6 +1,5 @@
-import Image from "next/image";
+//import Image from "next/image";
 import HomeNav from "@/components/homenav";
-import {GoogleOAuthProvider} from '@react-oauth/google'
 
 export default function Home() {
   return (
