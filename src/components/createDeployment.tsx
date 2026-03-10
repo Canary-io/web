@@ -6,8 +6,15 @@ import { createPortal } from "react-dom";
 export default function CreateDeployment() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [repos, setRepos] = useState([]);
+  const [repoUrl, setRepoUrl] = useState("");
 
   useEffect(() => {
+    fetch("http://localhost:4001/user/repos", {
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setRepos(data));
     setMounted(true);
   }, []);
 
@@ -42,6 +49,12 @@ export default function CreateDeployment() {
           <input
             type="url"
             placeholder="Repository URL"
+            className="w-full border rounded-lg px-3 py-2"
+          />
+
+          <input
+            type="text"
+            placeholder="Tag"
             className="w-full border rounded-lg px-3 py-2"
           />
 
