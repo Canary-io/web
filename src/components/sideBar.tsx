@@ -9,7 +9,7 @@ export default function Sidebar() {
             Profile
           </button>
           <button className="w-full text-left p-2 rounded hover:bg-gray-800">
-            + Add Deployment
+            + 
           </button>
         </div>
   
