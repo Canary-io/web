@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Orca",
   description: "A SAAS platform to deploy, monitor, and rollout your application",
+  icons: {
+    icon: "/orca.png",
+    shortcut: "/orca.png",
+    apple: "/orca.png",
+  },
 };
 
 export default function RootLayout({
