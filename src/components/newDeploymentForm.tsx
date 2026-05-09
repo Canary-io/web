@@ -133,7 +133,7 @@ export default function NewDeploymentForm({
           htmlFor="tag"
           className="mb-2 block text-sm font-medium text-gray-700"
         >
-          Tag
+          Version
         </label>
         <input
           id="tag"
@@ -178,7 +178,7 @@ export default function NewDeploymentForm({
             className="w-full appearance-none rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-sm text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
           >
             <option value="canary">Canary</option>
-            <option value="blue-green">Blue-Green</option>
+            <option value="bluegreen">Blue-Green</option>
           </select>
           <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500">
             <svg

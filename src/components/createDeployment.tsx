@@ -54,7 +54,7 @@ export default function CreateDeployment() {
 
           <input
             type="text"
-            placeholder="Tag"
+            placeholder="Version"
             className="w-full border rounded-lg px-3 py-2"
           />
 
@@ -92,4 +92,3 @@ export default function CreateDeployment() {
     </>
   );
 }
-

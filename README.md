@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Database setup
+
+The deployments dashboard now reads from PostgreSQL using the `DATABASE_URL`
+environment variable.
+
+1. Create a Postgres database.
+2. Set `DATABASE_URL` in your shell or `.env.local`.
+3. Run the seed SQL in [sql/deployments.sql](/Users/josephjophy/Downloads/canary-io/web/sql/deployments.sql:1).
+
+Example:
+
+```bash
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/canary"
+psql "$DATABASE_URL" -f sql/deployments.sql
+npm run dev
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

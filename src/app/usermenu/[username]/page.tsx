@@ -1,8 +1,6 @@
 import DeploymentsTable, { Deployment } from "@/components/deploymentstable";
 import Sidebar from "@/components/sideBar";
-
-const deployments: Deployment[] = [
-  ];
+import { fetchDeployments } from "@/utils/fetchDeployments";
 
 interface UserMenuProps {
   params: Promise<{
@@ -12,6 +10,14 @@ interface UserMenuProps {
 
 export default async function UserMenu({ params }: UserMenuProps) {
   const { username } = await params;
+  let deployments: Deployment[] = [];
+
+  try {
+    deployments = await fetchDeployments();
+  } catch (error) {
+    console.error("Failed to load deployments", error);
+  }
+
   const formattedUsername = decodeURIComponent(username)
     .split(/[-_]/)
     .filter(Boolean)
