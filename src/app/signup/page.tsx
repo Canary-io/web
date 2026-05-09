@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getUserAuthServiceUrl } from "@/lib/userAuth";
 
 export default function SignupPage() {
   return (
@@ -39,7 +40,7 @@ export default function SignupPage() {
           </p>
 
           <a
-            href="http://localhost:4001/auth/github"
+            href={getUserAuthServiceUrl("/auth/github")}
             className="mt-8 flex w-full items-center justify-center rounded-2xl bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
             Sign up with GitHub

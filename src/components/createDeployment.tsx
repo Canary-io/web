@@ -2,19 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { getUserAuthServiceUrl } from "@/lib/userAuth";
 
 export default function CreateDeployment() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [repos, setRepos] = useState([]);
-  const [repoUrl, setRepoUrl] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:4001/user/repos", {
+    fetch(getUserAuthServiceUrl("/user/repos"), {
       credentials: "include",
     })
       .then((res) => res.json())
-      .then((data) => setRepos(data));
+      .catch(() => null);
     setMounted(true);
   }, []);
 

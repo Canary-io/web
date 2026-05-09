@@ -3,6 +3,7 @@
 import { useState } from "react";
 import DeleteDeploymentButton from "@/components/deleteDeploymentButton";
 import StartRolloutButton from "@/components/startRolloutButton";
+import { getUserAuthServiceBaseUrl, getUserAuthServiceUrl } from "@/lib/userAuth";
 
 interface RolloutActionsProps {
   deploymentId: number | string;
@@ -38,7 +39,7 @@ export default function RolloutActions({
     setPromoteError("");
 
     try {
-      const response = await fetch("http://localhost:4001/user/promoteRollout", {
+      const response = await fetch(getUserAuthServiceUrl("/user/promoteRollout"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export default function RolloutActions({
     } catch (caughtError) {
       if (caughtError instanceof TypeError) {
         setPromoteError(
-          "The rollout API at http://localhost:4001 is not reachable right now.",
+          `The rollout API at ${getUserAuthServiceBaseUrl()} is not reachable right now.`,
         );
       } else if (caughtError instanceof Error) {
         setPromoteError(caughtError.message);

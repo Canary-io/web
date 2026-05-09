@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orca-web-config
+  namespace: orca-web
+data:
+  NEXT_PUBLIC_USER_AUTH_SERVICE: "http://user-auth-service.default.svc.cluster.local:4001"

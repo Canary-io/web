@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { getUserAuthServiceBaseUrl, getUserAuthServiceUrl } from "@/lib/userAuth";
 
 interface NewDeploymentFormProps {
   username: string;
@@ -46,7 +47,7 @@ export default function NewDeploymentForm({
     }
 
     try {
-      const response = await fetch("http://localhost:4001/user/createDeployment", {
+      const response = await fetch(getUserAuthServiceUrl("/user/createDeployment"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +65,9 @@ export default function NewDeploymentForm({
       router.refresh();
     } catch (caughtError) {
       if (caughtError instanceof TypeError) {
-        setError("The deployment API at http://localhost:4001 is not reachable right now.");
+        setError(
+          `The deployment API at ${getUserAuthServiceBaseUrl()} is not reachable right now.`,
+        );
       } else if (caughtError instanceof Error) {
         setError(caughtError.message);
       } else {
