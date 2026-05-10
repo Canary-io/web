@@ -1,21 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import { getUserAuthServiceUrl } from "@/lib/userAuth";
 
 export default function CreateDeployment() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    fetch(getUserAuthServiceUrl("/user/repos"), {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .catch(() => null);
-    setMounted(true);
-  }, []);
 
   const modal = open ? (
     <div
@@ -87,7 +76,7 @@ export default function CreateDeployment() {
         Create Deployment
       </button>
 
-      {mounted && createPortal(modal, document.body)}
+      {typeof document !== "undefined" && createPortal(modal, document.body)}
     </>
   );
 }
