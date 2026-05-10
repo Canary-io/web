@@ -5,7 +5,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS deps
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 
 FROM base AS builder
@@ -21,6 +21,7 @@ ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
 
 COPY package.json package-lock.json ./
+COPY .npmrc ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 COPY --from=builder /app/.next ./.next
