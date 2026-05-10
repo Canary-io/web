@@ -15,10 +15,12 @@ spec:
       labels:
         app: orca-web
     spec:
+      imagePullSecrets:
+        - name: ghcr-creds
       containers:
         - name: web
-          image: REPLACE_WITH_YOUR_IMAGE
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/canary-io/orca-web:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
               name: http
