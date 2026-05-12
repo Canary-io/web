@@ -3,7 +3,6 @@
 import { useState } from "react";
 import DeleteDeploymentButton from "@/components/deleteDeploymentButton";
 import StartRolloutButton from "@/components/startRolloutButton";
-import { getUserAuthServiceBaseUrl, getUserAuthServiceUrl } from "@/lib/userAuth";
 
 interface RolloutActionsProps {
   deploymentId: number | string;
@@ -39,27 +38,25 @@ export default function RolloutActions({
     setPromoteError("");
 
     try {
-      const response = await fetch(getUserAuthServiceUrl("/user/promoteRollout"), {
+      const response = await fetch("/api/user/promoteRollout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({
           rolloutName: deploymentName.trim(),
         }),
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Failed to promote rollout.");
+        const payload = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+
+        throw new Error(payload?.error ?? "Failed to promote rollout.");
       }
     } catch (caughtError) {
-      if (caughtError instanceof TypeError) {
-        setPromoteError(
-          `The rollout API at ${getUserAuthServiceBaseUrl()} is not reachable right now.`,
-        );
-      } else if (caughtError instanceof Error) {
+      if (caughtError instanceof Error) {
         setPromoteError(caughtError.message);
       } else {
         setPromoteError("We couldn't promote the rollout. Please try again.");

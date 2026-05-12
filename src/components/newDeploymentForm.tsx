@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { getUserAuthServiceBaseUrl, getUserAuthServiceUrl } from "@/lib/userAuth";
 
 interface NewDeploymentFormProps {
   username: string;
@@ -47,28 +46,26 @@ export default function NewDeploymentForm({
     }
 
     try {
-      const response = await fetch(getUserAuthServiceUrl("/user/createDeployment"), {
+      const response = await fetch("/api/user/createDeployment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Failed to create deployment");
+        const payload = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+
+        throw new Error(payload?.error ?? "Failed to create deployment");
       }
 
       router.push(`/usermenu/${username}`);
       router.refresh();
     } catch (caughtError) {
-      if (caughtError instanceof TypeError) {
-        setError(
-          `The deployment API at ${getUserAuthServiceBaseUrl()} is not reachable right now.`,
-        );
-      } else if (caughtError instanceof Error) {
+      if (caughtError instanceof Error) {
         setError(caughtError.message);
       } else {
         setError("We couldn't create the deployment. Please try again.");

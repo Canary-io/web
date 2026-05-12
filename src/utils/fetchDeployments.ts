@@ -1,6 +1,9 @@
 import { Deployment } from "@/components/deploymentstable";
 import { getPool } from "@/lib/db";
 
+const HARDCODED_METRICS_URL =
+  "http://test53-grafana.orcademo.com/d/test53-dashboard/test53-metrics";
+
 interface DeploymentRow {
   id: number | string;
   name: string;
@@ -137,6 +140,6 @@ export async function fetchDeployments(): Promise<Deployment[]> {
     name: row.name,
     status: row.status,
     deploymentUrls: parseDeploymentUrls(row.url),
-    metricsUrl: row.metrics_url ?? undefined,
+    metricsUrl: HARDCODED_METRICS_URL,
   }));
 }

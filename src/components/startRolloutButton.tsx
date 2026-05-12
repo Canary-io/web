@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { getUserAuthServiceBaseUrl, getUserAuthServiceUrl } from "@/lib/userAuth";
 
 interface StartRolloutButtonProps {
   deploymentName: string;
@@ -40,12 +39,11 @@ export default function StartRolloutButton({
     setError("");
 
     try {
-      const response = await fetch(getUserAuthServiceUrl("/user/startRollout"), {
+      const response = await fetch("/api/user/startRollout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
         body: JSON.stringify({
           deploymentName,
           tag: versionName.trim(),
@@ -53,19 +51,18 @@ export default function StartRolloutButton({
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || "Failed to start rollout.");
+        const payload = (await response.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+
+        throw new Error(payload?.error ?? "Failed to start rollout.");
       }
 
       onStartRollout?.(versionName.trim());
       setIsModalOpen(false);
       setVersionName("");
     } catch (caughtError) {
-      if (caughtError instanceof TypeError) {
-        setError(
-          `The rollout API at ${getUserAuthServiceBaseUrl()} is not reachable right now.`,
-        );
-      } else if (caughtError instanceof Error) {
+      if (caughtError instanceof Error) {
         setError(caughtError.message);
       } else {
         setError("We couldn't start the rollout. Please try again.");

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import HomeNav from "@/components/homenav";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
             Welcome to Orca
           </h1>
           <p className="mt-3 max-w-2xl text-base text-blue-100 sm:text-lg">
-            A platform to deploy, run, and monitor your applications with the same clean workflow you see inside your user dashboard.
+            A platform to deploy, monitor, and safely release your applications with canary and blue-green deployment workflows built into your dashboard.
           </p>
         </div>
 
@@ -32,9 +33,12 @@ export default function Home() {
               <button className="rounded-xl bg-gray-900 px-6 py-3 text-white transition hover:bg-gray-800">
                 Get Started
               </button>
-              <button className="rounded-xl border border-blue-200 bg-white px-6 py-3 text-gray-700 transition hover:bg-blue-50">
+              <Link
+                href="/deployments/info"
+                className="rounded-xl border border-blue-200 bg-white px-6 py-3 text-gray-700 transition hover:bg-blue-50"
+              >
                 Learn More
-              </button>
+              </Link>
             </div>
           </div>
 
